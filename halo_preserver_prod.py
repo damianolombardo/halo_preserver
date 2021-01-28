@@ -14,6 +14,7 @@ import requests
 import re
 import time
 import os.path
+from os import makedirs
 import pandas as pd
 
 
@@ -62,7 +63,7 @@ def halo2_game_ids(gamertag):
 
 
 
-def halo2_game_id_download(game_id, gamertag):
+def halo2_game_id_download(game_id, gamertag, root=''):
     """
     for each game id, hard download all the game data
 
@@ -75,9 +76,10 @@ def halo2_game_id_download(game_id, gamertag):
     game_data = requests.get(game)
     game_text = game_data.text
     
-    save_path = ''
+    save_path = os.path.join(root,gamertag,'halo2','games')
     name_of_file = '{}_halo2_game_{}.txt'.format(gamertag,game_id)
     complete_name = os.path.join(save_path, name_of_file)
+    makedirs(os.path.dirname(complete_name), exist_ok=True)
     
     file = open(complete_name, "w")
     file.write(game_text)
@@ -206,7 +208,7 @@ def halo3_campaign_ids(gamertag):
     
     
     
-def halo3_game_id_download(game_id, gamertag):
+def halo3_game_id_download(game_id, gamertag, root=''):
     """
     for each game id, hard download all the game data
 
@@ -219,10 +221,11 @@ def halo3_game_id_download(game_id, gamertag):
     game_data = requests.get(game)
     game_text = game_data.text
     
-    save_path = ''
+    save_path = os.path.join(root,gamertag,'halo3','games')
     name_of_file = '{}_halo3_game_{}.txt'.format(gamertag,game_id)
     complete_name = os.path.join(save_path, name_of_file)
-    
+    makedirs(os.path.dirname(complete_name), exist_ok=True)
+
     file = open(complete_name, "w")
     file.write(game_text)
     file.close
@@ -230,7 +233,7 @@ def halo3_game_id_download(game_id, gamertag):
     time.sleep(2)
     
     
-def halo3_campaign_id_download(game_id, gamertag):
+def halo3_campaign_id_download(game_id, gamertag, root=''):
     """
     separate function for campaign ids
     since the url path is different
@@ -240,9 +243,10 @@ def halo3_campaign_id_download(game_id, gamertag):
     game_data = requests.get(game)
     game_text = game_data.text
     
-    save_path = ''
+    save_path = os.path.join(root,gamertag,'halo3','campaigns')
     name_of_file = '{}_halo3_campaign_{}.txt'.format(gamertag,game_id)
     complete_name = os.path.join(save_path, name_of_file)
+    makedirs(os.path.dirname(complete_name), exist_ok=True)
     
     file = open(complete_name, "w")
     file.write(game_text)
@@ -254,7 +258,7 @@ def halo3_campaign_id_download(game_id, gamertag):
     
     
     
-def halo3_main_stats_page(gamertag):
+def halo3_main_stats_page(gamertag, root=''):
     """
     download of the main halo 3 stats page
     """
@@ -263,9 +267,10 @@ def halo3_main_stats_page(gamertag):
     url_data = requests.get(url)
     url_text = url_data.text
     
-    save_path = ''
+    save_path = os.path.join(root,gamertag,'halo3','stats')
     name_of_file = '{}_halo3_profile_stats.txt'.format(gamertag)
     complete_name = os.path.join(save_path, name_of_file)
+    makedirs(os.path.dirname(complete_name), exist_ok=True)
     
     file = open(complete_name, "w")
     file.write(url_text)
@@ -301,7 +306,7 @@ def halo3_get_campaign_files(gamertag):
         print("processing campaign id {}, {}/{} total games".format(i, j,len(halo3_campaign_ids_list)))
         j=j+1
     
-def halo3_get_heatmap_images(gamertag, inf=10, kills=True, individual_weapons=False, map_to_get='all'):
+def halo3_get_heatmap_images(gamertag, inf=10, kills=True, individual_weapons=False, map_to_get='all', root=''):
     #gamertag = 'AI52487963'
     #inf = 10
     #kills=True        
@@ -334,10 +339,11 @@ def halo3_get_heatmap_images(gamertag, inf=10, kills=True, individual_weapons=Fa
     
             response = requests.get("https://halo.bungie.net/stats/Halo3/HeatMap.ashx?player={}&map={}&wep={}&inf={}".format(gamertag,map_id,type_id,inf))
     
-            save_path = ''
+            save_path = os.path.join(root,gamertag,'halo3','heatmaps')
             name_of_file = '{}_halo3_heatmap_{}_{}_{}.png'.format(gamertag,map_name,type_name,inf)
             print("saving {}".format(name_of_file))
             complete_name = os.path.join(save_path, name_of_file)
+            makedirs(os.path.dirname(complete_name), exist_ok=True)
             file = open(complete_name,"wb")
             file.write(response.content)
             file.close()
