@@ -63,7 +63,7 @@ def halo2_game_ids(gamertag):
 
 
 
-def halo2_game_id_download(game_id, gamertag, root=''):
+def halo2_game_id_download(game_id, gamertag, root='data_files'):
     """
     for each game id, hard download all the game data
 
@@ -208,7 +208,7 @@ def halo3_campaign_ids(gamertag):
     
     
     
-def halo3_game_id_download(game_id, gamertag, root=''):
+def halo3_game_id_download(game_id, gamertag, root='data_files'):
     """
     for each game id, hard download all the game data
 
@@ -233,7 +233,7 @@ def halo3_game_id_download(game_id, gamertag, root=''):
     time.sleep(2)
     
     
-def halo3_campaign_id_download(game_id, gamertag, root=''):
+def halo3_campaign_id_download(game_id, gamertag, root='data_files'):
     """
     separate function for campaign ids
     since the url path is different
@@ -258,7 +258,7 @@ def halo3_campaign_id_download(game_id, gamertag, root=''):
     
     
     
-def halo3_main_stats_page(gamertag, root=''):
+def halo3_main_stats_page(gamertag, root='data_files'):
     """
     download of the main halo 3 stats page
     """
@@ -306,7 +306,7 @@ def halo3_get_campaign_files(gamertag):
         print("processing campaign id {}, {}/{} total games".format(i, j,len(halo3_campaign_ids_list)))
         j=j+1
     
-def halo3_get_heatmap_images(gamertag, inf=10, kills=True, individual_weapons=False, map_to_get='all', root=''):
+def halo3_get_heatmap_images(gamertag, inf=10, kills=True, individual_weapons=False, map_to_get='all', root='data_files'):
     #gamertag = 'AI52487963'
     #inf = 10
     #kills=True        
